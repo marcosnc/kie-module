@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
+      xmlns:kie="http://www.mulesoft.org/schema/mule/kie"
+      xsi:schemaLocation="
+               http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+               http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
+               http://www.mulesoft.org/schema/mule/kie http://www.mulesoft.org/schema/mule/kie/current/mule-kie.xsd">
+
+    <kie:local-session name="ksession1" resources="/resources.jar" />
+
+    <flow name="insertFact">
+        <inbound-endpoint address="vm://insertFact" exchange-pattern="request-response"/>
+
+        <set-variable variableName="globalList" value="#[[]]" />
+
+        <kie:set-global session-ref="ksession1" name="list" value="#[flowVars['globalList']]"/>
+
+        <kie:insert session-ref="ksession1" />
+
+        <logger level="ERROR" />
+
+        <logger level="ERROR" message="#[flowVars['globalList']]"/>
+    </flow>
+
+</mule>

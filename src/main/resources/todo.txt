@@ -1,0 +1,77 @@
+In Schema:
+----------
+  - Evaluate rules
+  - Signal Event
+
+
+In General:
+-----------
+- Use runtimeEngine to create:
+    kieSession
+    taskService -> check this interface in order to provide manual tasks
+
+- Review runtimeEngine strategies
+
+- Can we use a "global"to receive notifications??
+
+- Check pooling profiles to create sessions pools. Process pools?
+
+
+Drools Definitions:
+-------------------
+
+Globals:
+
+- hay un processor setGlobal
+    source: optativo, por default el payload  (Global Value)
+    name: obligatorio, el valor de la global
+
+Facts:
+
+- se define una interfaz MuleFact<T>, que tiene:
+    id   (serializable)
+    fact (T)
+
+- hay 3 processors:
+  - upsertFact, si el id está vacío es insert, sino es update
+      source: optativo, por default el payload  (MuleFact, u Objeto, en este caso se crea un MuleFact sin id)
+      target: optativo, por default el payload  (MuleFact)
+  - delete
+      source: optativo, por default el payload  (MuleFact)
+  - fireRules
+      por ahora va a lanzar todas las reglas, pero se debería poder extender
+
+- Tanto el upsert como el delete pueden recibir un iterator o un iterable, en ese caso se hace la operación para
+  cada elemento
+- Los Fact pueden ser arbitrariamente grandes
+
+
+Definiciones sobre jBPM:
+------------------------
+
+- processor start
+    id: obligatorio, indica el id del proceso
+    source: optativo, por dafault el payload (Map<String, Object>) parámetros
+    target: optativo, por dafault el payload (ProcessInstance)
+
+- processor abort
+    source: optativo, por dafault el payload (ProcessInstance, o processInstanceId)
+
+- processor signal
+    source: optativo, por dafault el payload (Object) es el Event
+    type: obligatorio, de tipo string
+    instance: optativo (ProcessInstance, o processInstanceId)
+
+
+
+Definiciones Genéricas:
+
+- hay un processor execute
+    source: optativo, por dafault el payload (objeto Command<T>)
+
+
+
+Preguntas:
+
+- Cómo hago para que todo esto sea transaccional???
+
