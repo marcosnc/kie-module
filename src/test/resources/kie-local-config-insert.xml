@@ -10,18 +10,26 @@
 
     <kie:local-session name="ksession1" resources="/resources.jar" />
 
-    <flow name="insertFact">
-        <inbound-endpoint address="vm://insertFact" exchange-pattern="request-response"/>
+    <flow name="insertFactFiringRulesInUpsert">
+        <inbound-endpoint address="vm://insertFactFiringRulesInUpsert" exchange-pattern="request-response"/>
 
         <set-variable variableName="globalList" value="#[[]]" />
 
-        <kie:set-global session-ref="ksession1" name="list" value="#[flowVars['globalList']]"/>
+        <kie:set-global session-ref="ksession1" globalName="list" value="#[flowVars['globalList']]"/>
 
-        <kie:insert session-ref="ksession1" />
+        <kie:upsert session-ref="ksession1" fireRules="true" />
+    </flow>
 
-        <logger level="ERROR" />
+    <flow name="insertFactFiringRulesAfterUpsert">
+        <inbound-endpoint address="vm://insertFactFiringRulesAfterUpsert" exchange-pattern="request-response"/>
 
-        <logger level="ERROR" message="#[flowVars['globalList']]"/>
+        <set-variable variableName="globalList" value="#[[]]" />
+
+        <kie:set-global session-ref="ksession1" globalName="list" value="#[flowVars['globalList']]"/>
+
+        <kie:upsert session-ref="ksession1" />
+
+        <kie:fire-rules session-ref="ksession1" />
     </flow>
 
 </mule>

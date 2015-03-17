@@ -1,77 +1,41 @@
-In Schema:
-----------
-  - Evaluate rules
-  - Signal Event
 
-
-In General:
------------
-- Use runtimeEngine to create:
-    kieSession
-    taskService -> check this interface in order to provide manual tasks
-
+General TODOs:
+-------------
+- Check interface "TaskService" in order to provide manual tasks
 - Review runtimeEngine strategies
-
-- Can we use a "global"to receive notifications??
-
+- Can we use a "global" to receive notifications??
 - Check pooling profiles to create sessions pools. Process pools?
+- Create an execute processor taking a Command<T> object for advanced tasks
+- Currently all processors are getting/setting from/to the payload, define source/target properties for each one
+- How can we make all this transactional?
+- Sessions could be local or remote, both of them can also be: stateless or statefull?
 
 
-Drools Definitions:
--------------------
+Drools TODOs:
+-------------
 
-Globals:
-
-- hay un processor setGlobal
-    source: optativo, por default el payload  (Global Value)
-    name: obligatorio, el valor de la global
-
-Facts:
-
-- se define una interfaz MuleFact<T>, que tiene:
-    id   (serializable)
-    fact (T)
-
-- hay 3 processors:
-  - upsertFact, si el id está vacío es insert, sino es update
-      source: optativo, por default el payload  (MuleFact, u Objeto, en este caso se crea un MuleFact sin id)
-      target: optativo, por default el payload  (MuleFact)
-  - delete
-      source: optativo, por default el payload  (MuleFact)
-  - fireRules
-      por ahora va a lanzar todas las reglas, pero se debería poder extender
-
-- Tanto el upsert como el delete pueden recibir un iterator o un iterable, en ese caso se hace la operación para
-  cada elemento
-- Los Fact pueden ser arbitrariamente grandes
+- Define an interface to abstract from the FactHandle in the MuleFact
+- Improve the fire-rules processor to set which rules to fire
+- Improve upsert and delete to receive an iterator and iterable elements
+- Improve upsert in order to allow huge facts and stream them
 
 
-Definiciones sobre jBPM:
+jBPM TODOs:
+-----------
+
+- Create the following processors:
+  - abort: takes a ProcessIntance or a ProcessInstance Id and abort the referenced process
+  - signal: takes an Object (the event), a type, and a ProcessInstance, and signals an event
+
+
+
+
+Para ejecutar KIE remoto
 ------------------------
 
-- processor start
-    id: obligatorio, indica el id del proceso
-    source: optativo, por dafault el payload (Map<String, Object>) parámetros
-    target: optativo, por dafault el payload (ProcessInstance)
-
-- processor abort
-    source: optativo, por dafault el payload (ProcessInstance, o processInstanceId)
-
-- processor signal
-    source: optativo, por dafault el payload (Object) es el Event
-    type: obligatorio, de tipo string
-    instance: optativo (ProcessInstance, o processInstanceId)
-
-
-
-Definiciones Genéricas:
-
-- hay un processor execute
-    source: optativo, por dafault el payload (objeto Command<T>)
-
-
-
-Preguntas:
-
-- Cómo hago para que todo esto sea transaccional???
+Por ahora todo lo hice usando la demo.
+Para instalar y ejecutar la demo ver: http://docs.jboss.org/jbpm/v6.2/userguide/ch03.html
+Para deployar nuevos proyectos hay que definir un repositorio en el KIE workbench,
+luego bajar ese proyecto usando git, editarlo local, y después subir los cambios usando el usuario krisv.
+Una vez que se tiene el proyecto hay que builderalo y deployarlo desde el KIE workbench.
 

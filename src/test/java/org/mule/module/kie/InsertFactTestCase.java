@@ -6,9 +6,13 @@
  */
 package org.mule.module.kie;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 import org.mule.api.MuleEvent;
 import org.mule.construct.Flow;
 import org.mule.tck.junit4.FunctionalTestCase;
+
+import java.util.Arrays;
 
 import org.junit.Test;
 
@@ -22,15 +26,25 @@ public class InsertFactTestCase extends FunctionalTestCase
     }
 
     @Test
-    public void insertFact() throws Exception
+    public void insertFactFiringRulesInUpsert() throws Exception
     {
-        Flow flow = (Flow) getFlowConstruct("insertFact");
-        MuleEvent event = getTestEvent(2);
-
-        event = flow.process(event);
-
-        System.out.println(event.getMessage().getPayloadAsString());
+        doTest("insertFactFiringRulesInUpsert");
     }
 
+    @Test
+    public void insertFactFiringRulesAfterUpsert() throws Exception
+    {
+        doTest("insertFactFiringRulesAfterUpsert");
+    }
+
+    private void doTest(String flowName) throws Exception
+    {
+        int inData = 2;
+        String outData = Arrays.toString(new int[] {0 * inData, 1 * inData, 2 * inData});
+
+        MuleEvent event = ((Flow) getFlowConstruct(flowName)).process(getTestEvent(inData));
+
+        assertThat(event.getFlowVariable("globalList").toString(), is(outData));
+    }
 
 }

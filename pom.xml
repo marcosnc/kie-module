@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.mule.modules</groupId>
         <artifactId>mule-modules</artifactId>
-        <version>3.6.0-M1-SNAPSHOT</version>
+        <version>3.7.0-M1-SNAPSHOT</version>
     </parent>
 
     <artifactId>mule-module-kie</artifactId>
@@ -17,9 +17,10 @@
     <description>Classes which allow Mule to integrate with KIE.</description>
 
     <properties>
-        <kieVersion>6.0.1.Final</kieVersion>
+        <kieVersion>6.2.0.Final</kieVersion>
         <droolsVersion>${kieVersion}</droolsVersion>
         <jbpmVersion>${kieVersion}</jbpmVersion>
+        <licensePath>LICENSE_HEADER.txt</licensePath>
     </properties>
 
     <dependencies>
@@ -34,12 +35,19 @@
             <version>${project.version}</version>
         </dependency>
 
+        <!-- KIE General -->
         <dependency>
             <groupId>org.kie</groupId>
             <artifactId>kie-api</artifactId>
             <version>${kieVersion}</version>
         </dependency>
+        <dependency>
+            <groupId>org.kie.remote</groupId>
+            <artifactId>kie-remote-client</artifactId>
+            <version>${kieVersion}</version>
+        </dependency>
 
+        <!-- KIE Drools -->
         <dependency>
             <groupId>org.drools</groupId>
             <artifactId>drools-core</artifactId>
@@ -51,6 +59,7 @@
             <version>${droolsVersion}</version>
         </dependency>
 
+        <!-- KIE jBPM -->
         <dependency>
             <groupId>org.jbpm</groupId>
             <artifactId>jbpm-flow</artifactId>
@@ -86,7 +95,6 @@
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
 

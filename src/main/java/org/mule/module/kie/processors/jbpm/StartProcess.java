@@ -4,13 +4,14 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-
-package org.mule.module.kie.processors;
+package org.mule.module.kie.processors.jbpm;
 
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleException;
 import org.mule.api.processor.MessageProcessor;
-import org.mule.processor.AbstractInterceptingMessageProcessor;
+import org.mule.module.kie.processors.AbstractKieMessageProcessor;
+
+import java.util.Map;
 
 import org.kie.api.runtime.process.ProcessInstance;
 
@@ -23,16 +24,15 @@ public class StartProcess extends AbstractKieMessageProcessor
     @Override
     protected MessageProcessor createMessageProcessor() throws MuleException
     {
-        return new AbstractInterceptingMessageProcessor()
+        return new MessageProcessor()
         {
 
             @Override
             public MuleEvent process(MuleEvent event) throws MuleException
             {
-                System.out.println("= session name ====>   " + getSession().getName() + "   " + event.getId());
-                //ProcessInstance pi = getSession().getKieSession().createProcessInstance(getProcess(), null);
-                ProcessInstance pi = getSession().getKieSession().startProcess(getProcess());
-                System.out.println(pi.getId());
+                ProcessInstance pi = getSession().getKieSession().startProcess(getProcess(), getSource(event));
+
+                setTarget(event, pi);
 
                 return event;
             }
@@ -48,4 +48,20 @@ public class StartProcess extends AbstractKieMessageProcessor
     {
         this.process = process;
     }
+
+    protected Map<String, Object> getSource(MuleEvent event)
+    {
+        Object source = event.getMessage().getPayload(); // TODO: read from other event parts accordingly to configuration
+        if (source instanceof Map)
+        {
+            return (Map)source;
+        }
+        return null;
+    }
+
+    protected void setTarget(MuleEvent event, ProcessInstance pi)
+    {
+        event.getMessage().setPayload(pi); // TODO: write to other event part accordingly to configuration
+    }
+
 }

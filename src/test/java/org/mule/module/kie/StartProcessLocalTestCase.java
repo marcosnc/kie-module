@@ -6,13 +6,17 @@
  */
 package org.mule.module.kie;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 import org.mule.api.MuleEvent;
 import org.mule.construct.Flow;
 import org.mule.tck.junit4.FunctionalTestCase;
 
 import org.junit.Test;
+import org.kie.api.runtime.process.ProcessInstance;
 
-public class StartProcessTestCase extends FunctionalTestCase
+public class StartProcessLocalTestCase extends FunctionalTestCase
 {
 
     @Override
@@ -29,8 +33,9 @@ public class StartProcessTestCase extends FunctionalTestCase
 
         event = flow.process(event);
 
-        System.out.println(event.getMessage().getPayloadAsString());
+        assertThat(event.getMessage().getPayload(), instanceOf(ProcessInstance.class));
+        assertThat(((ProcessInstance)event.getMessage().getPayload()).getId(), is(1L));
+        assertThat(((ProcessInstance)event.getMessage().getPayload()).getState(), is(ProcessInstance.STATE_COMPLETED));
     }
-
 
 }

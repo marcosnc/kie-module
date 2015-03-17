@@ -9,17 +9,16 @@ package org.mule.module.kie;
 
 import org.mule.api.MuleContext;
 import org.mule.api.context.MuleContextAware;
-import org.mule.api.lifecycle.Disposable;
 
 import org.kie.api.runtime.KieSession;
 
-public abstract class SessionConfig implements MuleContextAware, Disposable
+public abstract class SessionConfig implements MuleContextAware
 {
 
-    private MuleContext muleContext;
-    private String name;
-    private String base;
-    private KieSession kieSession;
+    protected MuleContext muleContext;
+    protected String name;
+    protected String base;
+    protected KieSession kieSession;
 
     @Override
     public void setMuleContext(MuleContext muleContext)
@@ -57,14 +56,5 @@ public abstract class SessionConfig implements MuleContextAware, Disposable
     }
 
     protected abstract KieSession createKieSession();
-
-    @Override
-    public void dispose()
-    {
-        if (getKieSession() != null)
-        {
-            getKieSession().dispose();
-        }
-    }
 
 }

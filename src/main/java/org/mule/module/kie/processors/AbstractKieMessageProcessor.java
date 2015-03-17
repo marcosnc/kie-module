@@ -4,7 +4,6 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-
 package org.mule.module.kie.processors;
 
 import org.mule.api.MuleContext;
@@ -83,4 +82,8 @@ public abstract class AbstractKieMessageProcessor implements MessageProcessor, I
         return session;
     }
 
+    public void setSession(SessionConfig session)
+    {
+        this.session = session;
+    }
 }

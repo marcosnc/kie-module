@@ -136,14 +136,63 @@
         </xsd:complexContent>
     </xsd:complexType>
     <!--==============================================================-->
-    <xsd:element name="insert" type="insertType" substitutionGroup="mule:abstract-message-processor">
+    <xsd:element name="upsert" type="upsertType" substitutionGroup="mule:abstract-message-processor">
         <xsd:annotation>
             <xsd:documentation>
-                Inserts the message's payload as a fact
+                Inserts or updates the message's payload as a fact
             </xsd:documentation>
         </xsd:annotation>
     </xsd:element>
-    <xsd:complexType name="insertType">
+    <xsd:complexType name="upsertType">
+        <xsd:complexContent>
+            <xsd:extension base="mule:abstractMessageProcessorType">
+                <xsd:attribute name="session-ref" type="xsd:string" use="required">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            A reference to the session to use.
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:attribute>
+                <xsd:attribute name="fireRules" type="mule:substitutableBoolean" default="false">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            If true, executes the rules immediately after the insert or update operation.
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:attribute>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!--==============================================================-->
+    <xsd:element name="fire-rules" type="fireRulesType" substitutionGroup="mule:abstract-message-processor">
+        <xsd:annotation>
+            <xsd:documentation>
+                Fires all the rules
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="fireRulesType">
+        <xsd:complexContent>
+            <xsd:extension base="mule:abstractMessageProcessorType">
+                <xsd:attribute name="session-ref" type="xsd:string" use="required">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            A reference to the session to use.
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:attribute>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!--==============================================================-->
+    <xsd:element name="delete" type="deleteType" substitutionGroup="mule:abstract-message-processor">
+        <xsd:annotation>
+            <xsd:documentation>
+                Deletes the message's payload from the registered facts
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="deleteType">
         <xsd:complexContent>
             <xsd:extension base="mule:abstractMessageProcessorType">
                 <xsd:attribute name="session-ref" type="xsd:string" use="required">
@@ -174,7 +223,7 @@
                         </xsd:documentation>
                     </xsd:annotation>
                 </xsd:attribute>
-                <xsd:attribute name="name" type="xsd:string" use="required">
+                <xsd:attribute name="globalName" type="xsd:string" use="required">
                     <xsd:annotation>
                         <xsd:documentation>
                             The global variable name.
