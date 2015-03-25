@@ -1,0 +1,11 @@
+global org.mule.module.kie.ListOfIntegers theList
+
+rule "rule add 5 times" when
+    $multiplier : org.mule.module.kie.ScalarMultiplier( )
+then
+    theList.getIntegers().add( $multiplier.getValue() * 0 );
+    theList.getIntegers().add( $multiplier.getValue() * 1 );
+    theList.getIntegers().add( $multiplier.getValue() * 2 );
+    theList.getIntegers().add( $multiplier.getValue() * 3 );
+    theList.getIntegers().add( $multiplier.getValue() * 4 );
+end

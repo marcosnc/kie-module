@@ -37,9 +37,8 @@ public class LocalSessionConfig extends SessionConfig implements Disposable
     @Override
     protected KieSession createKieSession()
     {
+        File rootFile = new File(this.getClass().getResource(getResources()).getFile()); // TODO: use FileUtils
         KieServices kieServices = KieServices.Factory.get();
-        //File rootFile = FileUtils.newFile(getResources());
-        File rootFile = new File(this.getClass().getResource(getResources()).getFile());
         KieBuilder kieBuilder = kieServices.newKieBuilder(rootFile);
         kieBuilder.buildAll();
         KieContainer kieContainer = kieServices.newKieContainer(kieServices.getRepository().getDefaultReleaseId());

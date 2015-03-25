@@ -4,25 +4,30 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-package org.mule.module.kie;
+package org.mule.module.kie.local;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import org.mule.api.MuleEvent;
 import org.mule.construct.Flow;
-import org.mule.tck.junit4.FunctionalTestCase;
 
 import java.util.Arrays;
 
 import org.junit.Test;
 
-public class InsertFactTestCase extends FunctionalTestCase
+public class InsertFactTestCase extends KieLocalFunctionalTestCase
 {
 
     @Override
     protected String getConfigFile()
     {
-        return "kie-local-config-insert.xml";
+        return "local/insert-fact-config.xml";
+    }
+
+    @Override
+    protected String[] getKieResources()
+    {
+        return new String[]{"rule-3-times.drl"};
     }
 
     @Test

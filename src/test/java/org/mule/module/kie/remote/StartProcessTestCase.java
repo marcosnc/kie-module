@@ -4,7 +4,7 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-package org.mule.module.kie;
+package org.mule.module.kie.remote;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
@@ -17,13 +17,13 @@ import org.mule.tck.junit4.FunctionalTestCase;
 import org.junit.Test;
 import org.kie.api.runtime.process.ProcessInstance;
 
-public class StartProcessRemoteTestCase extends FunctionalTestCase
+public class StartProcessTestCase extends FunctionalTestCase
 {
 
     @Override
     protected String getConfigFile()
     {
-        return "kie-remote-config-start.xml";
+        return "remote/start-process-config.xml";
     }
 
     @Test

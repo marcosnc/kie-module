@@ -136,6 +136,27 @@
         </xsd:complexContent>
     </xsd:complexType>
     <!--==============================================================-->
+    <xsd:element name="abort" type="abortType" substitutionGroup="mule:abstract-message-processor">
+        <xsd:annotation>
+            <xsd:documentation>
+                Component that aborts a jBPM process.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="abortType">
+        <xsd:complexContent>
+            <xsd:extension base="mule:abstractMessageProcessorType">
+                <xsd:attribute name="session-ref" type="xsd:string" use="required">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            A reference to the session to use to start the process.
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:attribute>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!--==============================================================-->
     <xsd:element name="upsert" type="upsertType" substitutionGroup="mule:abstract-message-processor">
         <xsd:annotation>
             <xsd:documentation>
@@ -234,6 +255,34 @@
                     <xsd:annotation>
                         <xsd:documentation>
                             The global variable value.
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:attribute>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <!--==============================================================-->
+    <xsd:element name="get-global" type="getGlobalType" substitutionGroup="mule:abstract-message-processor">
+        <xsd:annotation>
+            <xsd:documentation>
+                Gets a global variable
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="getGlobalType">
+        <xsd:complexContent>
+            <xsd:extension base="mule:abstractMessageProcessorType">
+                <xsd:attribute name="session-ref" type="xsd:string" use="required">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            A reference to the session to use.
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:attribute>
+                <xsd:attribute name="globalName" type="xsd:string" use="required">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            The global variable name.
                         </xsd:documentation>
                     </xsd:annotation>
                 </xsd:attribute>
