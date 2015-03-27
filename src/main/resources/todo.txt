@@ -3,12 +3,14 @@ General TODOs:
 --------------
 - Check interface "TaskService" in order to provide manual tasks
 - Review runtimeEngine strategies
+- Currently an unique session is used, see how to configure this: a session per request (stateless?), a session per app, named sessions, etc.
+- See when to reload local session resources, may be adding a custom processor for it or setting an auto reload feature, etc.
+- Sessions could be local or remote, both of them can also be: stateless or statefull?
 - Can we use a "global" to receive notifications??
 - Check pooling profiles to create sessions pools. Process pools?
 - Create an execute processor taking a Command<T> object for advanced tasks
 - Currently all processors are getting/setting from/to the payload, define source/target properties for each one
 - How can we make all this transactional?
-- Sessions could be local or remote, both of them can also be: stateless or statefull?
 
 
 Drools TODOs:
@@ -40,6 +42,14 @@ Limitations:
 Tests:
 ------
 - Local Abort process
+
+
+Read this:
+----------
+http://docs.jboss.org/jbpm/v6.2/userguide/
+http://docs.jboss.org/drools/release/6.2.0.Final/drools-docs/html_single/index.html
+http://www.drools.org/learn/documentation.html
+https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_BPM_Suite/6.0/html/User_Guide/sect-Domain-specific_Tasks.html
 
 
 Para ejecutar KIE remoto
