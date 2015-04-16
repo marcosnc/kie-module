@@ -17,7 +17,6 @@ public abstract class SessionConfig implements MuleContextAware
 
     protected MuleContext muleContext;
     protected String name;
-    protected String base;
     protected KieSession kieSession;
 
     @Override
@@ -34,16 +33,6 @@ public abstract class SessionConfig implements MuleContextAware
     public void setName(String name)
     {
         this.name = name;
-    }
-
-    public String getBase()
-    {
-        return base;
-    }
-
-    public void setBase(String base)
-    {
-        this.base = base;
     }
 
     public KieSession getKieSession()

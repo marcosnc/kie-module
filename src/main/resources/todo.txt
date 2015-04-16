@@ -1,8 +1,8 @@
 
 General TODOs:
 --------------
-- Check interface "TaskService" in order to provide manual tasks
 - Review runtimeEngine strategies
+- Check interface "TaskService" in order to provide manual tasks
 - Currently an unique session is used, see how to configure this: a session per request (stateless?), a session per app, named sessions, etc.
 - See when to reload local session resources, may be adding a custom processor for it or setting an auto reload feature, etc.
 - Sessions could be local or remote, both of them can also be: stateless or statefull?
@@ -10,7 +10,8 @@ General TODOs:
 - Check pooling profiles to create sessions pools. Process pools?
 - Create an execute processor taking a Command<T> object for advanced tasks
 - Currently all processors are getting/setting from/to the payload, define source/target properties for each one
-- How can we make all this transactional?
+- How can we make all this transactional? See: http://docs.jboss.org/drools/release/6.2.0.Final/drools-docs/html_single/index.html at 4.2.4.9. Persistence and Transactions
+- Allow to save sessions
 
 
 Drools TODOs:
@@ -19,6 +20,7 @@ Drools TODOs:
 - Improve the fire-rules processor to set which rules to fire
 - Improve upsert and delete to receive an iterator and iterable elements
 - Improve upsert in order to allow huge facts and stream them
+- Support queries
 
 
 jBPM TODOs:

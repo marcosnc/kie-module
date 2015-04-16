@@ -36,7 +36,14 @@
                         </xsd:documentation>
                     </xsd:annotation>
                 </xsd:attribute>
-                <xsd:attribute name="base" type="xsd:string" use="optional">
+                <xsd:attribute name="kieSessionName" type="xsd:string" use="optional">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            Specifies the KIE Session name.
+                        </xsd:documentation>
+                    </xsd:annotation>
+                </xsd:attribute>
+                <xsd:attribute name="kieBaseName" type="xsd:string" use="optional">
                     <xsd:annotation>
                         <xsd:documentation>
                             Specifies the KIE Base name.
@@ -62,13 +69,6 @@
                     <xsd:annotation>
                         <xsd:documentation>
                             Identifies the session configuration in the registry, so that it can be referenced by the message processors.
-                        </xsd:documentation>
-                    </xsd:annotation>
-                </xsd:attribute>
-                <xsd:attribute name="base" type="xsd:string" use="optional">
-                    <xsd:annotation>
-                        <xsd:documentation>
-                            Specifies the KIE Base name.
                         </xsd:documentation>
                     </xsd:annotation>
                 </xsd:attribute>

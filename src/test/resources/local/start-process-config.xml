@@ -8,12 +8,12 @@
                http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
                http://www.mulesoft.org/schema/mule/kie http://www.mulesoft.org/schema/mule/kie/current/mule-kie.xsd">
 
-    <kie:local-session name="ksession1" resources="/kie-resources.jar" />
+    <kie:local-session name="localSession" resources="/kie-resources.jar" />
 
     <flow name="startProcess">
         <inbound-endpoint address="vm://startProcess" exchange-pattern="request-response"/>
 
-        <kie:start session-ref="ksession1" process="com.sample.HelloWorld" />
+        <kie:start session-ref="localSession" process="com.sample.HelloWorld" />
     </flow>
 
 </mule>
