@@ -8,4 +8,5 @@ then
     theList.getIntegers().add( $multiplier.getValue() * 2 );
     theList.getIntegers().add( $multiplier.getValue() * 3 );
     theList.getIntegers().add( $multiplier.getValue() * 4 );
+    $multiplier.setValue($multiplier.getValue() * 100);
 end

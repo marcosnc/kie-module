@@ -18,6 +18,9 @@ import java.util.List;
 
 import org.junit.Test;
 
+/**
+ * Insert a fact using a custom type, in this case an instance of {@link ScalarMultiplier}
+ */
 public class InsertFactCustomTestCase extends KieLocalFunctionalTestCase
 {
 

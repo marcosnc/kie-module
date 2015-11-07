@@ -36,4 +36,9 @@ public class ScalarMultiplier
     {
         this.value = value;
     }
+
+    @Override
+    public String toString() {
+        return "Scalar Multiplier by " + value;
+    }
 }

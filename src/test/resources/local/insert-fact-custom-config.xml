@@ -17,7 +17,11 @@
 
         <kie:set-global session-ref="localSession" globalName="theList" value="#[flowVars['globalList']]"/>
 
+        <logger message="Before the payload is: #[payload]" level="ERROR" />
+
         <kie:upsert session-ref="localSession" fireRules="true" />
+
+        <logger message="After the payload is: #[payload.fact]" level="ERROR" />
     </flow>
 
 </mule>
