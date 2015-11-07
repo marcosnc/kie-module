@@ -62,3 +62,20 @@ Para deployar nuevos proyectos hay que definir un repositorio en el KIE workbenc
 luego bajar ese proyecto usando git, editarlo local, y después subir los cambios usando el usuario krisv.
 Una vez que se tiene el proyecto hay que builderalo y deployarlo desde el KIE workbench.
 
+
+
+Entender
+--------
+
+RuntimeEnvironment: Es donde se encuentra la cofiguración del ambiente. Lo utiliza el RuntimeManager. Se crea con el RuntimeEnvironmentBuilder
+RuntimeEnvironmentBuilder: Es el que permite crear instancias de RuntimeEnvironment. Se crea con el RuntimeEnvironmentBuilderFactory
+
+RuntimeManager: RuntimeManager manages RuntimeEngine's that are esentially build with KieSession and TaskService to deliver executable environments for processes and user tasks.
+RuntimeManagerFactory: crea distintos tipos de RuntimeManager pasandoles RuntimeEnvironment. Básicamente puede crear 3 tipos de RuntimeManager: Singleton, PerRequest y PerProcessInstance
+
+RuntimeEngine: Contiene una KieSession, un TaskService y un AuditService. Estos 3 componentes se conocen entre si y ya están configurados.
+Context: es lo que se le pasa el RuntimeManager para obtener un RuntimeEngine. Puede tener un identificador y a veces puede tener properties (datos).
+
+KieSession: Permite interactuar con Drools y jBPM
+TaskService: Permite buscar y controlar las tareas manuales
+AuditService:

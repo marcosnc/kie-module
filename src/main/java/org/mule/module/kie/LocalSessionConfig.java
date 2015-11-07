@@ -6,6 +6,7 @@
  */
 package org.mule.module.kie;
 
+import org.kie.api.runtime.manager.audit.AuditService;
 import org.mule.api.lifecycle.Disposable;
 
 import java.io.File;
@@ -102,11 +103,25 @@ public class LocalSessionConfig extends SessionConfig implements Disposable
     protected void createKieSession2()
     {
         RuntimeEnvironment runtimeEnvironment = RuntimeEnvironmentBuilder.Factory.get().newEmptyBuilder().get();
+        // runtime manager es thread safe
+        // runtime manager por artefacto (set de recursos)
+        // runtime manager tiene una única sesión y un único servicio de tareas
         RuntimeManager runtimeManager = RuntimeManagerFactory.Factory.get().newPerProcessInstanceRuntimeManager(runtimeEnvironment);
         RuntimeEngine engine = runtimeManager.getRuntimeEngine(EmptyContext.get());
         KieSession kieSession = engine.getKieSession();
         TaskService taskService = engine.getTaskService();
         List<TaskSummary> tasks = taskService.getTasksAssignedAsPotentialOwner("mary", "en-UK");
+        AuditService auditService = engine.getAuditService();
+        auditService.findProcessInstances();
+
+        // TODO Probar esto
+        RuntimeEnvironment runtimeEnvironment2 = RuntimeEnvironmentBuilder.Factory.get().newClasspathKmoduleDefaultBuilder(getKieBaseName(), getKieSessionName()).get();
+
+        // Otro caso de uso es completar tareas manuales desde mule (****)
+
+        // Ver de compartir los datasources en los runtimes locales
+
+        // En los remotos está el concepto de deploy unit
 
     }
 

@@ -34,6 +34,17 @@ public class KieNamespaceHandler extends AbstractMuleNamespaceHandler
         // jBPM
         registerBeanDefinitionParser("start", new MessageProcessorDefinitionParser(StartProcess.class));
         registerBeanDefinitionParser("abort", new MessageProcessorDefinitionParser(AbortProcess.class));
+        /*
+        // TODO: Crear tarea manual nueva
+        registerBeanDefinitionParser("new-task", new MessageProcessorDefinitionParser(NewTask.class));
+        // TODO: Completar una tarea
+        registerBeanDefinitionParser("complete-task", new MessageProcessorDefinitionParser(CompleteTask.class));
+        // TODO: pedir tareas de un usuario
+        registerBeanDefinitionParser("get-tasks", new MessageProcessorDefinitionParser(getTasks.class));
+        // TODO: Enviar señales a un proceso
+        registerBeanDefinitionParser("signal", new MessageProcessorDefinitionParser(Signal.class));
+        // TODO: WorkItemHandler -> para llamar desde jBpm a mule
+        */
 
         // Drools
         registerBeanDefinitionParser("set-global", new MessageProcessorDefinitionParser(SetGlobal.class));
@@ -41,7 +52,25 @@ public class KieNamespaceHandler extends AbstractMuleNamespaceHandler
         registerBeanDefinitionParser("upsert", new MessageProcessorDefinitionParser(UpsertFact.class));
         registerBeanDefinitionParser("delete", new MessageProcessorDefinitionParser(DeleteFact.class));
         registerBeanDefinitionParser("fire-rules", new MessageProcessorDefinitionParser(FireRules.class));
+        /*
+        // TODO: static query
+        registerBeanDefinitionParser("static-query", new MessageProcessorDefinitionParser(StaticQuery.class));
+        // TODO: live query, tipo push notifications, registrar un callback
+        registerBeanDefinitionParser("live-query", new MessageProcessorDefinitionParser(LiveQuery.class));
+        // TODO: Explorar comandos batch
+        */
     }
-    
+
+    // probar https://github.com/droolsjbpm/jbpm-playground
+    // Customer Relationships web service
+    // https://github.com/droolsjbpm/jbpm-playground/tree/master/customer-relationships-workitems/src/main/java/org/jbpm/customer/services
+
+    /*
+    - desacoplar el acceso al jar de recursos de la app usando kie ci
+    pasar el artifact id en:
+    KieContainer kieContainer = KieServices.Factory.get().newKieContainer(getReleaseId());
+    Con esto se logra tener un repositorio versionable de artifacts
+    */
+
 }
 

@@ -33,6 +33,7 @@ public class UpsertFact extends AbstractFactMessageProcessor
                 if (muleFact.getHandle()==null)
                 {
                     muleFact.setHandle(kieSession.insert(muleFact.getFact()));
+                    // Para la conexion remota usar batch command
                 }
                 else
                 {
