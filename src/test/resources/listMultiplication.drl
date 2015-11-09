@@ -1,7 +1,7 @@
-global org.mule.module.kie.ListOfIntegers theList
+global org.mule.module.kie.examples.ListOfIntegers theList
 
 rule "rule add 5 times" when
-    $multiplier : org.mule.module.kie.ScalarMultiplier( )
+    $multiplier : org.mule.module.kie.examples.ScalarMultiplier( )
 then
     theList.getIntegers().add( $multiplier.getValue() * 0 );
     theList.getIntegers().add( $multiplier.getValue() * 1 );

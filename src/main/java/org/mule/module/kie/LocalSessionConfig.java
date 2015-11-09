@@ -10,6 +10,7 @@ import org.kie.api.runtime.manager.audit.AuditService;
 import org.mule.api.lifecycle.Disposable;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import org.kie.api.KieBase;
@@ -27,6 +28,7 @@ import org.kie.api.runtime.manager.RuntimeManagerFactory;
 import org.kie.api.task.TaskService;
 import org.kie.api.task.model.TaskSummary;
 import org.kie.internal.runtime.manager.context.EmptyContext;
+import org.mule.util.FileUtils;
 
 /**
  *
@@ -86,7 +88,21 @@ public class LocalSessionConfig extends SessionConfig implements Disposable
 
     private void buildResources()
     {
-        File rootFile = new File(this.getClass().getResource(getResources()).getFile()); // TODO: use FileUtils
+//        File rootFile = new File(this.getClass().getResource(getResources()).getFile()); // TODO: use FileUtils
+        //----------------------------------------
+        File rootFile = null;
+        try {
+            String resourcesPath = FileUtils.getResourcePath(getResources(), this.getClass());
+            if (resourcesPath==null) {
+                resourcesPath = this.getClass().getResource(getResources()).getFile();
+            }
+            rootFile = new File(resourcesPath);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            rootFile = new File(this.getClass().getResource(getResources()).getFile());
+        }
+        //----------------------------------------
 
         KieBuilder kieBuilder = KieServices.Factory.get().newKieBuilder(rootFile);
         kieBuilder.buildAll();

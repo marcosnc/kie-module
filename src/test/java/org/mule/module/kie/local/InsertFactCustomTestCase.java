@@ -10,8 +10,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import org.mule.api.MuleEvent;
 import org.mule.construct.Flow;
-import org.mule.module.kie.ListOfIntegers;
-import org.mule.module.kie.ScalarMultiplier;
+import org.mule.module.kie.examples.ListOfIntegers;
+import org.mule.module.kie.examples.ScalarMultiplier;
 
 import java.util.Arrays;
 import java.util.List;
@@ -51,6 +51,13 @@ public class InsertFactCustomTestCase extends KieLocalFunctionalTestCase
         MuleEvent event = ((Flow) getFlowConstruct("insertFact")).process(getTestEvent(multiplier));
 
         assertThat(((ListOfIntegers)event.getFlowVariable("globalList")).getIntegers(), is(outData));
+    }
+
+    @Test
+    public void insertIterative() throws Exception
+    {
+        ScalarMultiplier multiplier = new ScalarMultiplier(3);
+        ((Flow) getFlowConstruct("insertFactIterative")).process(getTestEvent(multiplier));
     }
 
 }

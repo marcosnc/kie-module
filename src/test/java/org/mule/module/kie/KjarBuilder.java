@@ -46,7 +46,7 @@ public class KjarBuilder
         Manifest manifest = new Manifest();
         manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
 
-        File kJarFile = new File(KjarBuilder.class.getResource("/").getFile(), kJarName);
+        File kJarFile = kJarName.startsWith("/") ? new File(kJarName) : new File(KjarBuilder.class.getResource("/").getFile(), kJarName);
         try (JarOutputStream target = new JarOutputStream(new FileOutputStream(kJarFile), manifest))
         {
             target.putNextEntry(new JarEntry(KMODULE_XML_RESOURCE));

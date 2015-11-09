@@ -13,15 +13,29 @@
     <flow name="insertFact">
         <inbound-endpoint address="vm://insertFact" exchange-pattern="request-response"/>
 
-        <set-variable variableName="globalList" value="#[new org.mule.module.kie.ListOfIntegers()]" />
+        <set-variable variableName="globalList" value="#[new org.mule.module.kie.examples.ListOfIntegers()]" />
 
         <kie:set-global session-ref="localSession" globalName="theList" value="#[flowVars['globalList']]"/>
 
-        <logger message="Before the payload is: #[payload]" level="ERROR" />
+        <kie:upsert session-ref="localSession" fireRules="true" />
+    </flow>
+
+    <flow name="insertFactIterative">
+        <inbound-endpoint address="vm://insertFactIterative" exchange-pattern="request-response"/>
+
+        <set-variable variableName="globalList" value="#[new org.mule.module.kie.examples.ListOfIntegers()]" />
+
+        <kie:set-global session-ref="localSession" globalName="theList" value="#[flowVars['globalList']]"/>
+
+        <logger message="Step 1. The payload is: #[payload]" level="ERROR" />
 
         <kie:upsert session-ref="localSession" fireRules="true" />
 
-        <logger message="After the payload is: #[payload.fact]" level="ERROR" />
+        <logger message="Step 2. The payload.fact is: #[payload.fact]" level="ERROR" />
+
+        <kie:upsert session-ref="localSession" fireRules="true" />
+
+        <logger message="Step 3. The payload.fact is: #[payload.fact]" level="ERROR" />
     </flow>
 
 </mule>
