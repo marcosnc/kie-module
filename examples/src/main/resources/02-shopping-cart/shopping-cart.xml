@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:kie="http://www.mulesoft.org/schema/mule/kie"
+      xsi:schemaLocation="
+               http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+               http://www.mulesoft.org/schema/mule/kie http://www.mulesoft.org/schema/mule/kie/current/mule-kie.xsd">
+
+    <!--<http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" />-->
+
+    <kie:local-session name="localSession" resources="/kie-resources.jar" />
+
+    <flow name="testFlow">
+        <!--<http:listener config-ref="HTTP_Listener_Configuration" path="/addItem/{itemName}/{itemValue}" />-->
+        <!--<set-payload value="#[new org.drools.workshop.model.Item(message.inboundProperties['http.uri.params'].itemName, message.inboundProperties['http.uri.params'].itemValue)]" />-->
+
+        <set-variable variableName="muleCallback" value="#[new org.mule.module.kie.MuleCallback()]" />
+        <kie:set-global session-ref="localSession" globalName="muleCallback" value="#[flowVars['muleCallback']]"/>
+
+        <kie:upsert session-ref="localSession" fireRules="true" />
+    </flow>
+
+</mule>

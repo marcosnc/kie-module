@@ -1,0 +1,81 @@
+
+General TODOs:
+--------------
+- Review runtimeEngine strategies
+- Check interface "TaskService" in order to provide manual tasks
+- Currently an unique session is used, see how to configure this: a session per request (stateless?), a session per app, named sessions, etc.
+- See when to reload local session resources, may be adding a custom processor for it or setting an auto reload feature, etc.
+- Sessions could be local or remote, both of them can also be: stateless or statefull?
+- Can we use a "global" to receive notifications??
+- Check pooling profiles to create sessions pools. Process pools?
+- Create an execute processor taking a Command<T> object for advanced tasks
+- Currently all processors are getting/setting from/to the payload, define source/target properties for each one
+- How can we make all this transactional? See: http://docs.jboss.org/drools/release/6.2.0.Final/drools-docs/html_single/index.html at 4.2.4.9. Persistence and Transactions
+- Allow to save sessions
+
+
+Drools TODOs:
+-------------
+- Define an interface to abstract from the FactHandle in the MuleFact
+- Improve the fire-rules processor to set which rules to fire
+- Improve upsert and delete to receive an iterator and iterable elements
+- Improve upsert in order to allow huge facts and stream them
+- Support queries
+
+
+jBPM TODOs:
+-----------
+- Create the following processors:
+  - abort: takes a ProcessIntance or a ProcessInstance Id and abort the referenced process
+  - signal: takes an Object (the event), a type, and a ProcessInstance, and signals an event
+
+
+Organization:
+-------------
+- Add a way (or some docs) showing how to deploy artifacts in a remote server
+- Add Tasks
+
+
+Limitations:
+------------
+- Facts can not be inserted with a remote session
+
+
+Tests:
+------
+- Local Abort process
+
+
+Read this:
+----------
+http://docs.jboss.org/jbpm/v6.2/userguide/
+http://docs.jboss.org/drools/release/6.2.0.Final/drools-docs/html_single/index.html
+http://www.drools.org/learn/documentation.html
+https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_BPM_Suite/6.0/html/User_Guide/sect-Domain-specific_Tasks.html
+
+
+Para ejecutar KIE remoto
+------------------------
+Por ahora todo lo hice usando la demo.
+Para instalar y ejecutar la demo ver: http://docs.jboss.org/jbpm/v6.2/userguide/ch03.html
+Para deployar nuevos proyectos hay que definir un repositorio en el KIE workbench,
+luego bajar ese proyecto usando git, editarlo local, y después subir los cambios usando el usuario krisv.
+Una vez que se tiene el proyecto hay que builderalo y deployarlo desde el KIE workbench.
+
+
+
+Entender
+--------
+
+RuntimeEnvironment: Es donde se encuentra la cofiguración del ambiente. Lo utiliza el RuntimeManager. Se crea con el RuntimeEnvironmentBuilder
+RuntimeEnvironmentBuilder: Es el que permite crear instancias de RuntimeEnvironment. Se crea con el RuntimeEnvironmentBuilderFactory
+
+RuntimeManager: RuntimeManager manages RuntimeEngine's that are esentially build with KieSession and TaskService to deliver executable environments for processes and user tasks.
+RuntimeManagerFactory: crea distintos tipos de RuntimeManager pasandoles RuntimeEnvironment. Básicamente puede crear 3 tipos de RuntimeManager: Singleton, PerRequest y PerProcessInstance
+
+RuntimeEngine: Contiene una KieSession, un TaskService y un AuditService. Estos 3 componentes se conocen entre si y ya están configurados.
+Context: es lo que se le pasa el RuntimeManager para obtener un RuntimeEngine. Puede tener un identificador y a veces puede tener properties (datos).
+
+KieSession: Permite interactuar con Drools y jBPM
+TaskService: Permite buscar y controlar las tareas manuales
+AuditService:

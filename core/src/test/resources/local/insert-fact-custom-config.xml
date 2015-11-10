@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
+      xmlns:kie="http://www.mulesoft.org/schema/mule/kie"
+      xsi:schemaLocation="
+               http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+               http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
+               http://www.mulesoft.org/schema/mule/kie http://www.mulesoft.org/schema/mule/kie/current/mule-kie.xsd">
+
+    <kie:local-session name="localSession" resources="/kie-resources.jar" />
+
+    <flow name="insertFact">
+        <inbound-endpoint address="vm://insertFact" exchange-pattern="request-response"/>
+
+        <set-variable variableName="globalList" value="#[new org.mule.module.kie.ListOfIntegers()]" />
+
+        <kie:set-global session-ref="localSession" globalName="theList" value="#[flowVars['globalList']]"/>
+
+        <kie:upsert session-ref="localSession" fireRules="true" />
+    </flow>
+
+    <flow name="insertFactIterative">
+        <inbound-endpoint address="vm://insertFactIterative" exchange-pattern="request-response"/>
+
+        <set-variable variableName="globalList" value="#[new org.mule.module.kie.ListOfIntegers()]" />
+
+        <kie:set-global session-ref="localSession" globalName="theList" value="#[flowVars['globalList']]"/>
+
+        <logger message="Step 1. The payload is: #[payload]" level="ERROR" />
+
+        <kie:upsert session-ref="localSession" fireRules="true" />
+
+        <logger message="Step 2. The payload.fact is: #[payload.fact]" level="ERROR" />
+
+        <kie:upsert session-ref="localSession" fireRules="true" />
+
+        <logger message="Step 3. The payload.fact is: #[payload.fact]" level="ERROR" />
+    </flow>
+
+</mule>

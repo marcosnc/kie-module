@@ -1,0 +1,6 @@
+http\://www.mulesoft.org/schema/mule/kie/3.1/mule-kie.xsd=META-INF/mule-kie.xsd
+http\://www.mulesoft.org/schema/mule/kie/3.2/mule-kie.xsd=META-INF/mule-kie.xsd
+http\://www.mulesoft.org/schema/mule/kie/3.3/mule-kie.xsd=META-INF/mule-kie.xsd
+http\://www.mulesoft.org/schema/mule/kie/3.4/mule-kie.xsd=META-INF/mule-kie.xsd
+http\://www.mulesoft.org/schema/mule/kie/3.5/mule-kie.xsd=META-INF/mule-kie.xsd
+http\://www.mulesoft.org/schema/mule/kie/current/mule-kie.xsd=META-INF/mule-kie.xsd
