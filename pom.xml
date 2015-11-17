@@ -104,4 +104,13 @@
         </dependency>
     </dependencies>
 
+    <repositories>
+        <repository>
+            <id>mulesoft-snapshots</id>
+            <name>MuleSoft Snapshot Repository</name>
+            <url>https://repository.mulesoft.org/nexus/content/repositories/public/</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+
 </project>
