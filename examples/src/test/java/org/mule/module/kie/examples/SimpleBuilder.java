@@ -6,6 +6,8 @@
  */
 package org.mule.module.kie.examples;
 
+import static org.mule.module.kie.Constants.DEFAULT_KIE_PROJECT_HOME;
+import static org.mule.module.kie.Constants.DEFAULT_MULE_HOME;
 import org.mule.module.kie.KjarBuilder;
 
 import java.io.File;
@@ -18,9 +20,6 @@ public class SimpleBuilder {
     //       class is not found.
 
     // Test using: curl http://localhost:8081/fireRules/8
-
-    private static final String DEFAULT_KIE_PROJECT_HOME = "/Users/marcosnunezcortes/mnc/prjs/kie/mule-module-kie";
-    private static final String DEFAULT_MULE_HOME="/Users/marcosnunezcortes/mnc/mulas/mule-enterprise-standalone-3.8.0-SNAPSHOT";
 
     private static String kieProjectHome;
     private static String muleHome;
