@@ -10,7 +10,6 @@ import org.mule.module.kie.KjarBuilder;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 
 public class SimpleBuilder {
 
@@ -20,10 +19,15 @@ public class SimpleBuilder {
 
     // Test using: curl http://localhost:8081/fireRules/8
 
-    public static void main(String[] args) {
-        // TODO: create the whole mule app using this builder
+    private static final String DEFAULT_KIE_PROJECT_HOME = "/Users/marcosnunezcortes/mnc/prjs/kie/mule-module-kie";
+    private static final String DEFAULT_MULE_HOME="/Users/marcosnunezcortes/mnc/mulas/mule-enterprise-standalone-3.8.0-SNAPSHOT";
 
+    private static String kieProjectHome;
+    private static String muleHome;
+
+    public static void main(String[] args) {
         try {
+            setDirectories();
             createKJar();
             runScript();
         } catch (Exception e) {
@@ -31,8 +35,20 @@ public class SimpleBuilder {
         }
     }
 
+    private static void setDirectories() {
+        kieProjectHome = DEFAULT_KIE_PROJECT_HOME;
+        muleHome = DEFAULT_MULE_HOME;
+    }
+
+    private static String getPath(String relativePath) {
+        if (relativePath.startsWith("/")) {
+            return  relativePath;
+        }
+        return kieProjectHome + "/" + relativePath;
+    }
+
     private static void createKJar() throws IOException {
-        File kJar = new File("/Users/marcosnunezcortes/mnc/prjs/kie/mule-module-kie/examples/src/main/resources/01-simple/mule-app/01-simple-resources.jar");
+        File kJar = new File(getPath("examples/src/main/resources/01-simple/mule-app/01-simple-resources.jar"));
         kJar.delete();
         kJar = KjarBuilder.create(
                 kJar.getAbsolutePath(),
@@ -43,15 +59,7 @@ public class SimpleBuilder {
     }
 
     private static void runScript() throws IOException, InterruptedException {
-//        ProcessBuilder pb = new ProcessBuilder("/Users/marcosnunezcortes/mnc/prjs/kie/mule-module-kie/examples/src/main/resources/01-simple/build.sh", "myArg1", "myArg2");
-//        Map<String, String> env = pb.environment();
-//        env.put("VAR1", "myValue");
-//        env.remove("OTHERVAR");
-//        env.put("VAR2", env.get("VAR1") + "suffix");
-//        pb.directory(new File("myDir"));
-//        Process p = pb.start();
-
-        ProcessBuilder pb = new ProcessBuilder("/Users/marcosnunezcortes/mnc/prjs/kie/mule-module-kie/examples/src/main/resources/01-simple/build.sh");
+        ProcessBuilder pb = new ProcessBuilder(getPath("examples/src/main/resources/01-simple/build.sh"), kieProjectHome, muleHome);
         final Process p = pb.start();
         Thread output = new Thread(new Runnable() {
             @Override

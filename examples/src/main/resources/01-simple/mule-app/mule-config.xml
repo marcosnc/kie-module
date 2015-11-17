@@ -10,7 +10,7 @@
 
     <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" />
 
-    <kie:local-session name="localSession" resources="/Users/marcosnunezcortes/mnc/mulas/mule-enterprise-standalone-3.8.0-SNAPSHOT/apps/01-simple/01-simple-resources.jar" />
+    <kie:local-session name="localSession" resources="${app.home}/01-simple-resources.jar" />
 
     <flow name="multiplyFlow">
         <http:listener config-ref="HTTP_Listener_Configuration" path="/fireRules/{multiplyBy}" />

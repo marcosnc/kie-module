@@ -6,10 +6,11 @@
  */
 package org.mule.module.kie;
 
-import org.kie.api.runtime.manager.audit.AuditService;
 import org.mule.api.lifecycle.Disposable;
+import org.mule.util.FileUtils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
@@ -25,10 +26,10 @@ import org.kie.api.runtime.manager.RuntimeEnvironment;
 import org.kie.api.runtime.manager.RuntimeEnvironmentBuilder;
 import org.kie.api.runtime.manager.RuntimeManager;
 import org.kie.api.runtime.manager.RuntimeManagerFactory;
+import org.kie.api.runtime.manager.audit.AuditService;
 import org.kie.api.task.TaskService;
 import org.kie.api.task.model.TaskSummary;
 import org.kie.internal.runtime.manager.context.EmptyContext;
-import org.mule.util.FileUtils;
 
 /**
  *
@@ -88,7 +89,10 @@ public class LocalSessionConfig extends SessionConfig implements Disposable
 
     private void buildResources()
     {
-//        File rootFile = new File(this.getClass().getResource(getResources()).getFile()); // TODO: use FileUtils
+        // TODO: improve the way resources files are located.
+        //       Following cases should be supported:
+        //       - test cases (currently using "/<resources-file>")
+        //       - running applications should be able to use files in their current directory (currently you can use "apps/<app-name>/<resources-file>")
         //----------------------------------------
         File rootFile = null;
         try {
@@ -97,6 +101,9 @@ public class LocalSessionConfig extends SessionConfig implements Disposable
                 resourcesPath = this.getClass().getResource(getResources()).getFile();
             }
             rootFile = new File(resourcesPath);
+            if (!rootFile.exists()) {
+                throw new FileNotFoundException("Resources file does not exist: " + resourcesPath);
+            }
 
         } catch (IOException e) {
             e.printStackTrace();

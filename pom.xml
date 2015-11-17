@@ -17,9 +17,11 @@
     <modules>
         <module>core</module>
         <module>examples</module>
+        <module>embedded</module>
     </modules>
 
     <properties>
+        <muleVersion>${project.version}</muleVersion>
         <kieVersion>6.2.0.Final</kieVersion>
         <droolsVersion>${kieVersion}</droolsVersion>
         <jbpmVersion>${kieVersion}</jbpmVersion>
@@ -30,13 +32,13 @@
         <dependency>
             <groupId>org.mule</groupId>
             <artifactId>mule-core</artifactId>
-            <version>${project.version}</version>
+            <version>${muleVersion}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.mule.modules</groupId>
             <artifactId>mule-module-spring-config</artifactId>
-            <version>${project.version}</version>
+            <version>${muleVersion}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -85,19 +87,19 @@
         <dependency>
             <groupId>org.mule.tests</groupId>
             <artifactId>mule-tests-functional</artifactId>
-            <version>${project.version}</version>
+            <version>${muleVersion}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mule.modules</groupId>
             <artifactId>mule-module-client</artifactId>
-            <version>${project.version}</version>
+            <version>${muleVersion}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mule.transports</groupId>
             <artifactId>mule-transport-vm</artifactId>
-            <version>${project.version}</version>
+            <version>${muleVersion}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
