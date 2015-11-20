@@ -16,7 +16,9 @@ import org.kie.api.runtime.KieSession;
 public class UpsertFact extends AbstractFactMessageProcessor
 {
 
-    private boolean fireRules;
+    private static final boolean DEFAULT_FIRE_RULES_VALUE = true;
+
+    private boolean fireRules = DEFAULT_FIRE_RULES_VALUE;
 
     @Override
     protected MessageProcessor createMessageProcessor() throws MuleException

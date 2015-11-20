@@ -1,0 +1,9 @@
+global java.util.List list
+
+rule "rule 3 times" when
+    $i : Integer( )
+then
+    list.add( $i * 0 );
+    list.add( $i * 1 );
+    list.add( $i * 2 );
+end

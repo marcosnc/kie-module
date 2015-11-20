@@ -74,6 +74,56 @@ public class LocalSessionConfig extends SessionConfig implements Disposable
     @Override
     protected KieSession createKieSession()
     {
+        KieSession kieSession = null;
+
+        // in file system
+        try {
+            kieSession = createKieSession_fileSystem();
+        } catch (Exception e) {
+            // TODO: use logger
+            //e.printStackTrace();
+        }
+
+        // in class path by gav
+        if (kieSession==null) {
+            try {
+                if (getKieSessionName()==null || getKieSessionName().isEmpty()) {
+                    // TODO: para evitar que esto demore, crear la kbase y guardarla
+                    //  kieBase = KieServices.Factory.get().getKieClasspathContainer().newKieBase();
+                    //  kieBase.newKieSession()
+                    kieSession = KieServices.Factory.get().getKieClasspathContainer().newKieSession();
+                } else {
+                    kieSession = KieServices.Factory.get().getKieClasspathContainer().newKieSession(getKieSessionName());
+                }
+            } catch (Exception e) {
+                // TODO: use logger
+                //e.printStackTrace();
+            }
+        }
+
+        if (kieSession==null) {
+            // using kie-ci
+            try {
+                String[] parts = getResources().split(":");
+                ReleaseId releaseId = KieServices.Factory.get().newReleaseId(parts[0], parts[1], parts[2]);
+                if (getKieSessionName()==null || getKieSessionName().isEmpty()) {
+                    kieSession = KieServices.Factory.get().newKieContainer(releaseId).newKieSession();
+                } else {
+                    kieSession = KieServices.Factory.get().newKieContainer(releaseId).newKieSession(getKieSessionName());
+                }
+            } catch (Exception e) {
+                // TODO: use logger
+                //e.printStackTrace();
+            }
+        }
+
+        return kieSession;
+    }
+
+
+    //@Override
+    protected KieSession createKieSession_fileSystem()
+    {
         buildResources();
 
         KieContainer kieContainer = KieServices.Factory.get().newKieContainer(getReleaseId());

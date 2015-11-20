@@ -57,9 +57,13 @@ public class KieNamespaceHandler extends AbstractMuleNamespaceHandler
         registerBeanDefinitionParser("static-query", new MessageProcessorDefinitionParser(StaticQuery.class));
         // TODO: live query, tipo push notifications, registrar un callback
         registerBeanDefinitionParser("live-query", new MessageProcessorDefinitionParser(LiveQuery.class));
+        // TODO: channel, para invocar procesos mule desde Drools
+        registerBeanDefinitionParser("register-channel", new MessageProcessorDefinitionParser(RegisterChannel.class));
         // TODO: Explorar comandos batch
         */
     }
+
+    // Ver el tema de eventos con Drools Fusion
 
     // probar https://github.com/droolsjbpm/jbpm-playground
     // Customer Relationships web service

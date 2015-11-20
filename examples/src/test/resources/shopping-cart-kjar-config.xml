@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:kie="http://www.mulesoft.org/schema/mule/kie"
+      xsi:schemaLocation="
+               http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+               http://www.mulesoft.org/schema/mule/kie http://www.mulesoft.org/schema/mule/kie/current/mule-kie.xsd">
+
+    <kie:local-session name="localSession" resources="no-resources-defined" />
+
+    <!--<kie:register-channel session-ref="localSession" channelName="xxxx" object-ref="????" />-->
+
+    <flow name="testFlow">
+        <kie:upsert session-ref="localSession" fireRules="true" />
+    </flow>
+
+</mule>

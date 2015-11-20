@@ -18,11 +18,12 @@
         <module>core</module>
         <module>examples</module>
         <module>embedded</module>
+        <module>examples-kjar</module>
     </modules>
 
     <properties>
         <muleVersion>${project.version}</muleVersion>
-        <kieVersion>6.2.0.Final</kieVersion>
+        <kieVersion>6.3.0.Final</kieVersion>
         <droolsVersion>${kieVersion}</droolsVersion>
         <jbpmVersion>${kieVersion}</jbpmVersion>
         <licensePath>LICENSE_HEADER.txt</licensePath>
@@ -43,15 +44,28 @@
         </dependency>
 
         <!-- KIE General -->
+        <!--TODO: move this dependencies to core-->
         <dependency>
             <groupId>org.kie</groupId>
             <artifactId>kie-api</artifactId>
             <version>${kieVersion}</version>
         </dependency>
+            <!--To locate kjar via maven-->
+        <!--<dependency>-->
+            <!--<groupId>org.kie</groupId>-->
+            <!--<artifactId>kie-ci</artifactId>-->
+            <!--<version>${kieVersion}</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.kie.remote</groupId>
             <artifactId>kie-remote-client</artifactId>
             <version>${kieVersion}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.logging</groupId>
+                    <artifactId>jboss-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- KIE Drools -->

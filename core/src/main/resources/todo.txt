@@ -12,6 +12,8 @@ General TODOs:
 - Currently all processors are getting/setting from/to the payload, define source/target properties for each one
 - How can we make all this transactional? See: http://docs.jboss.org/drools/release/6.2.0.Final/drools-docs/html_single/index.html at 4.2.4.9. Persistence and Transactions
 - Allow to save sessions
+- Tener en cuenta que toda la ejecución de reglas es bloqueante, por lo que un patrón común es poner una cola antes de la llamada a invokeRules, ver como es eso en el conector
+
 
 
 Drools TODOs:
@@ -21,6 +23,7 @@ Drools TODOs:
 - Improve upsert and delete to receive an iterator and iterable elements
 - Improve upsert in order to allow huge facts and stream them
 - Support queries
+- Revisar el tema de eventos (Drools Fusion)
 
 
 jBPM TODOs:

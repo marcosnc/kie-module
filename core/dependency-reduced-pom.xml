@@ -297,10 +297,6 @@
           <groupId>org.springframework</groupId>
         </exclusion>
         <exclusion>
-          <artifactId>junit</artifactId>
-          <groupId>junit</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>hamcrest-library</artifactId>
           <groupId>org.hamcrest</groupId>
         </exclusion>
